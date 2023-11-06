@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Peliculas</title>
-
-</head>
-<body>
+  </head>
+  <body>
     <h1>buscador</h1>
+    <input
+      name="search"
+      id="search"
+      placeholder="termino de busqueda de pelicula..."
+      style="width: 500px"
+      onblur="searchPelis()"
+    />
+    <div id="app"></div>
 
-       <input name="search" id="search" placeholder="termino de busqueda de pelicula..." style="width: 500px;" onblur="searchPelis()">
-    <div id="app">
-
-      
-    </div>
-
-  <script src="./assets/js/buscador.js"></script> 
-</body>
+    <script src="./assets/js/buscador.js"></script>
+  </body>
 </html>

@@ -1,5 +1,3 @@
-url = "http://localhost:3000/api/pelis";
-fetch(url)
 .then(response => response.json())
 .then(response => {
     console.log(response);
