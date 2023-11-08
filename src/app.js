@@ -8,7 +8,7 @@ app.use(express.json()); // Para JSON
 app.use(express.urlencoded({ extended: true })); // Para formularios codificados
 
 app.get("/", (req, res) => {
-  res.send("<h1>Benviguts</h1>");
+  res.send("<h1>Benvinguts</h1>");
 });
 
 // url base de la api
@@ -138,7 +138,51 @@ app.get("/api/pelis/tmdb/search", async (req, res) => {
       res.send("error" + err.message);
     });
 });
+/* buscar por genero id */
 
+app.get("/api/pelis/genero/:generoid", async (req, res) => {
+  const generoid = req.params.generoid;
+  const [rows] = await pool.query(`SELECT * FROM peliculas p, peli_genero pg
+  WHERE p.id = pg.peliculaid AND pg.generoid = ${generoid}`);
+  //console.log(rows);
+  res.json(rows);
+});
+/* buscar los generos */
+
+app.get("/api/pelis/tmdb/generos", async (req, res) => {
+  const url = `https://api.themoviedb.org/3/genre/movie/list?language=${TMDB_LANG}`;
+
+  try {
+    const response = await fetch(url, TMDB_FETCH_OPTIONS);
+    if (!response.ok) {
+      throw new Error(
+        `Error al hacer la solicitud: ${response.status} - ${response.statusText}`
+      );
+    }
+
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: "Hubo un error al obtener los géneros de películas desde TMDb.",
+    });
+  }
+});
+
+app.get("/api/pelis/genero/:generoid", async (req, res) => {
+  /* comprobar que el valor enviado es integer (entero) */
+  const generoid = parseInt(req.params.generoid);
+  let rows = [];
+  if (isNaN(generoid)) {
+    rows = JSON.parse('{"error": "el genero no es valido"}');
+  } else {
+    [rows] = await pool.query(`SELECT * FROM peliculas p, peli_genero pg
+  WHERE p.id = pg.peliculaid AND pg.generoid = ${generoid}`);
+  }
+  //console.log(rows);
+  res.json(rows);
+});
 app.listen(PORT);
 
 console.log("listening on port " + PORT);

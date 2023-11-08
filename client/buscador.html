@@ -4,14 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Peliculas</title>
+    <style>
+      .pelis-table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .pelis-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+        font-family: Arial, sans-serif; /* Cambia la tipografía */
+        color: #333; /* Cambia el color del texto */
+      }
+
+      .pelis-title {
+        background-color: #f2f2f2;
+        font-weight: bold;
+        color: #0066cc; /* Cambia el color del texto */
+      }
+
+      .pelis-poster img {
+        max-width: 100px;
+      }
+
+      .pelis-form form {
+        display: inline-block;
+      }
+    </style>
   </head>
   <body>
-    <h1>buscador</h1>
+    <h1 style="font-family: Arial, sans-serif; color: #0066cc">
+      Buscador de Películas
+    </h1>
     <input
       name="search"
       id="search"
-      placeholder="termino de busqueda de pelicula..."
-      style="width: 500px"
+      placeholder="Término de búsqueda de películas..."
+      style="
+        width: 500px;
+        font-family: Arial, sans-serif;
+        color: #333;
+        padding: 10px;
+      "
       onblur="searchPelis()"
     />
     <div id="app"></div>
